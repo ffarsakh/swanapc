@@ -316,6 +316,15 @@
       <h1 class="page-title">Join SWANA <span class="new-badge">NEW</span></h1>
       <div class="join-intro">
         <p class="lead">We welcome palliative care professionals, researchers, educators, students, and advocates from across the SWANA region and beyond. Complete the form below to express your interest in joining our growing community.</p>
+        <div style="background:var(--teal-pale);border-radius:10px;padding:14px 20px;margin-bottom:24px;max-width:720px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <span style="font-size:13.5px;color:var(--teal-deep);line-height:1.6;">📲 <strong>Stay connected</strong> — follow us on social media for the latest news, webinars, and regional updates:</span>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="https://www.linkedin.com/company/swanapc/" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">LinkedIn</a>
+            <a href="https://x.com/swanapc" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">X</a>
+            <a href="https://www.instagram.com/swanapc/" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">Instagram</a>
+            <a href="https://www.facebook.com/swanapalliativecare/" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">Facebook</a>
+          </div>
+        </div>
       </div>
       <div style="max-width:720px;">
         <iframe data-tally-src="https://tally.so/embed/QK6pWg?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
@@ -350,6 +359,15 @@
     <div id="page-contact" class="page">
       <p class="eyebrow">Get in Touch</p>
       <h2 class="section-title">Contact &amp; Connect</h2>
+      <div style="background:var(--teal-pale);border-radius:10px;padding:14px 20px;margin-bottom:32px;max-width:860px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <span style="font-size:13.5px;color:var(--teal-deep);line-height:1.6;">📲 <strong>Follow us</strong> for the latest news, webinars, and updates from across the SWANA region:</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://www.linkedin.com/company/swanapc/" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">LinkedIn</a>
+          <a href="https://x.com/swanapc" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">X</a>
+          <a href="https://www.instagram.com/swanapc/" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">Instagram</a>
+          <a href="https://www.facebook.com/swanapalliativecare/" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:var(--teal-mid);text-decoration:none;border:1px solid var(--teal-light);border-radius:20px;padding:4px 12px;">Facebook</a>
+        </div>
+      </div>
       <div class="contact-grid">
         <div class="contact-info">
           <h3 class="sub-title">We'd love to hear from you</h3>
@@ -451,11 +469,28 @@
 </div>
 
 <script>
+  // Deep-link support: swanapc.org/#join etc.
+  (function() {
+    var hash = window.location.hash.replace('#','');
+    var valid = ['home','about','mission','join','events','contact'];
+    if (hash && valid.indexOf(hash) !== -1) {
+      var target = document.getElementById('page-' + hash);
+      var btn = document.querySelector('.nav-item[onclick*="\''+hash+'\'"]');
+      if (target) {
+        document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+        document.querySelectorAll('.nav-item').forEach(function(b){ b.classList.remove('active'); });
+        target.classList.add('active');
+        if (btn) btn.classList.add('active');
+      }
+    }
+  })();
+
   function showPage(id, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     btn.classList.add('active');
+    history.replaceState(null, '', '#' + id);
   }
 
   function toggleOtherCountry(sel) {
